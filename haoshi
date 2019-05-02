@@ -4,6 +4,8 @@
 # example1: haoshi
 # example2: haoshi -a "醉里挑灯看剑，梦回吹角连营"
 
+VERSE_FILE=~/.verse.txt
+
 f_new()
 {
 	verse=$1
@@ -12,7 +14,7 @@ f_new()
 		return 1
 	fi
 
-	tmp=$(grep ${verse} verse.txt | wc -l)
+	tmp=$(grep ${verse} $VERSE_FILE | wc -l)
 	if [ "$tmp" != "0" ]; then
 		echo "add failed, verse already exist"
 		return 2
@@ -26,10 +28,10 @@ f_new()
 
 f_out()
 {
-	local lines=$(wc -l verse.txt | awk '{print $1}')
+	local lines=$(wc -l $VERSE_FILE | awk '{print $1}')
 	local random_line=$(($RANDOM % $lines + 1))
 
-	sed -n "${random_line}p" verse.txt
+	sed -n "${random_line}p" $VERSE_FILE
 }
 
 f_main()

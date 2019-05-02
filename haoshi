@@ -1,0 +1,46 @@
+#! /bin/bash
+
+# usage: haoshi [-a][verse]
+# example1: haoshi
+# example2: haoshi -a "醉里挑灯看剑，梦回吹角连营"
+
+f_new()
+{
+	verse=$1
+	if [ -z "$verse" ]; then
+		echo "can not add empty verse"
+		return 1
+	fi
+
+	tmp=$(grep ${verse} verse.txt | wc -l)
+	if [ "$tmp" != "0" ]; then
+		echo "add failed, verse already exist"
+		return 2
+	fi
+
+	echo $verse >> verse.txt
+	echo "add succ."
+
+	return 0	
+}
+
+f_out()
+{
+	local lines=$(wc -l verse.txt | awk '{print $1}')
+	local random_line=$(($RANDOM % $lines + 1))
+
+	sed -n "${random_line}p" verse.txt
+}
+
+f_main()
+{
+	if [ "$1" = "-a" ]; then
+		f_new $2
+	elif [ "$1" = "-h" ]; then
+		echo "Usage: ${0} [-a][verse]" 
+	else
+		f_out
+	fi
+}
+
+f_main $@

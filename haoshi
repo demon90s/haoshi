@@ -20,7 +20,7 @@ f_new()
 		return 2
 	fi
 
-	echo $verse >> verse.txt
+	echo $verse >> $VERSE_FILE
 	echo "add succ."
 
 	return 0	

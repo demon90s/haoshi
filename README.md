@@ -6,6 +6,8 @@
 
 解决 commit comment 不知道写什么的问题。
 
+用来打卡也不错...
+
 ## How?
 
 ```bash
